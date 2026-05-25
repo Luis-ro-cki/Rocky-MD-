@@ -1,13 +1,12 @@
 {
-  "name": "wa-bot",
+  "name": "bot-full-apis",
   "version": "1.0.0",
   "main": "index.js",
-  "type": "commonjs",
-  "dependencies": {
-    "@whiskeysockets/baileys": "^6.6.0",
-    "axios": "^1.7.2"
-  },
   "scripts": {
     "start": "node index.js"
+  },
+  "dependencies": {
+    "@whiskeysockets/baileys": "^6.7.9",
+    "axios": "^1.7.2"
   }
 }
