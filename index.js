@@ -2,7 +2,6 @@ import makeWASocket, { useMultiFileAuthState, DisconnectReason } from '@whiskeys
 import axios from 'axios';
 
 const TU_OPENWEATHER_KEY = 'PON_AQUI_TU_KEY';
-
 async function startSock() {
     const { state, saveCreds } = await useMultiFileAuthState('auth');
 
