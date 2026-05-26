@@ -1,6 +1,6 @@
 module.exports = {
     prefix: '.',
-    owner: ['521XXXXXXXXX'], // Pon tu número sin +
+    owner: ['50578391933'], // Pon tu número sin +
     apis: {
         // Crea cuenta gratis en cada una y pega tu key
         neoxr: 'TU_KEY_NEOXR', // https://neoxr-api.com
