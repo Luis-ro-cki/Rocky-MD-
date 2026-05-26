@@ -1,9 +1,5 @@
-const {
-    default: makeWASocket,
-    useMultiFileAuthState,
-    DisconnectReason
-} = require('@whiskeysockets/baileys');
-const axios = require('axios');
+import makeWASocket, { useMultiFileAuthState, DisconnectReason } from '@whiskeysockets/baileys';
+import axios from 'axios';
 
 const TU_OPENWEATHER_KEY = 'PON_AQUI_TU_KEY';
 
