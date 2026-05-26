@@ -4,7 +4,12 @@ const config = require('./config');
 
 async function startBot() {
     const { state, saveCreds } = await useMultiFileAuthState('session');
-    const sock = makeWASocket({ auth: state, printQRInTerminal: true });
+   const sock = makeWASocket({ 
+    auth: state, 
+    printQRInTerminal: true,
+    usePairingCode: true,
+    phoneNumber: '50578391933'
+}); });
 
     sock.ev.on('creds.update', saveCreds);
 
