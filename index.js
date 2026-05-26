@@ -9,7 +9,7 @@ async function startBot() {
     printQRInTerminal: true,
     usePairingCode: true,
     phoneNumber: '50578391933'
-}); });
+ });
 
     sock.ev.on('creds.update', saveCreds);
 
