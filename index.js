@@ -1,43 +1,33 @@
-import { createRequire } from 'module';
-import pino from 'pino';
-import qrcode from 'qrcode-terminal';
+const { Client, LocalAuth } = require('whatsapp-web.js');
+const qrcode = require('qrcode-terminal');
 
-const require = createRequire(import.meta.url);
-const { default: makeWASocket, useMultiFileAuthState, fetchLatestBaileysVersion } = require('@whiskeysockets/baileys');
+const BOT_NAME = '𝕯𝖊𝖛𝕷𝖚𝖎𝖘𝖎𝖙𝖔';
 
-async function startSock() {
-    const { state, saveCreds } = await useMultiFileAuthState('./auth');
-    const { version } = await fetchLatestBaileysVersion();
+const client = new Client({
+  authStrategy: new LocalAuth({
+    clientId: "devluisitobot"
+  })
+});
 
-    const sock = makeWASocket({
-        version,
-        auth: state,
-        logger: pino({ level: 'silent' }),
-        browser: ['Ubuntu', 'Chrome', '20.0.04'],
-        connectTimeoutMs: 60000
-    });
+client.on('qr', (qr) => {
+  console.log('Escanea este QR con tu WhatsApp:');
+  qrcode.generate(qr, { small: true });
+});
 
-    sock.ev.on('qr', (qr) => {
-        console.log(`\n╭〔 📱 ROCKY-MD QR 〕━⬣`);
-        qrcode.generate(qr, { small: true });
-        console.log(`╰━━━━━━━━━━━━━━⬣\n`);
-    });
+client.on('ready', () => {
+  console.log(`${BOT_NAME} está online ✅`);
+});
 
-    sock.ev.on('connection.update', (update) => {
-        const { connection, lastDisconnect } = update;
-        if (connection === 'close') {
-            const statusCode = lastDisconnect?.error?.output?.statusCode;
-            console.log(`╭〔 ❌ DESCONECTADO 〕━⬣`);
-            console.log(`│ Código: ${statusCode}`);
-            console.log(`╰━━━━━━━━━━━━━━⬣`);
-        } else if (connection === 'open') {
-            console.log(`╭〔 ✅ ROCKY-MD CONECTADO 〕━⬣`);
-            console.log(`│ Bot listo y activo`);
-            console.log(`╰━━━━━━━━━━━━━━⬣`);
-        }
-    });
+client.on('message', async (msg) => {
+  const body = msg.body.toLowerCase();
+  
+  if (body === 'ping') {
+    msg.reply(`pong 🏓 - ${BOT_NAME} activo`);
+  }
+  
+  if (body === 'help') {
+    msg.reply(`Comandos de ${BOT_NAME}:\nping - test\nhelp - este menú`);
+  }
+});
 
-    sock.ev.on('creds.update', saveCreds);
-}
-
-startSock();
+client.initialize();
